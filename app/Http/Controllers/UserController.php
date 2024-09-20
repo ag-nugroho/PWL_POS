@@ -6,7 +6,6 @@ use App\Models\UserModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use Psy\Readline\Userland;
 
 class UserController extends Controller
 {
@@ -47,9 +46,12 @@ class UserController extends Controller
         // $user = UserModel::findOr(1, ['username', 'nama'], function () {
         //     abort(404);
         // });
-        $user = UserModel::findOr(20, ['username', 'nama'], function () {
-            abort(404);
-        });
+        // $user = UserModel::findOr(20, ['username', 'nama'], function () {
+        //     abort(404);
+        // });
+
+        // $user = UserModel::findOrFail(1);
+        $user = UserModel::where('username', 'manager9')->firstOrFail();
         return view('user', ['data' => $user]);
     }
 }
