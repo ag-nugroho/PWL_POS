@@ -257,7 +257,6 @@ class UserController extends Controller
         }
         return redirect('/');
     }
-    
 
     // public function confirm_ajax(string $id)
     // {

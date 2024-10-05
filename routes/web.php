@@ -43,6 +43,7 @@ Route::group(['prefix' => 'user'], function(){
     Route::delete('/{id}', [UserController::class, 'destroy']); 
 });
 
+
 Route::group(['prefix' => 'level'], function() {
     Route::get('/', [LevelController::class, 'index']);          // Menampilkan halaman awal User
     Route::post('/list', [LevelController::class, 'list']);      // Menampilkan data user dalam bentuk list
