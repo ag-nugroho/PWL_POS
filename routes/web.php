@@ -26,17 +26,21 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/', [WelcomeController::class, 'index']);
 Route::get('/', [WelcomeController::class, 'index']);
 
-Route::group(['prefix' => 'user'], function() {
-    Route::get('/', [UserController::class, 'index']);          // Menampilkan halaman awal User
-    Route::post('/list', [UserController::class, 'list']);      // Menampilkan data user dalam bentuk list
-    Route::get('/create', [UserController::class, 'create']);   // Menampilkan halaman form tambah user
-    Route::post('/', [UserController::class, 'store']);         // Menyimpan data user baru
+Route::group(['prefix' => 'user'], function(){
+    Route::get('/', [UserController::class, 'index']);
+    Route::post('/list', [UserController::class, 'list']);
+    Route::get('/create', [UserController::class, 'create']);
+    Route::post('/', [UserController::class, 'store']);
     Route::get('/create_ajax', [UserController::class, 'create_ajax']);
     Route::post('/ajax', [UserController::class, 'store_ajax']);
-    Route::get('/{id}', [UserController::class, 'show']);       // Menampilkan detail user
-    Route::get('/{id}/edit', [UserController::class, 'edit']);  // Menampilkan halaman form edit user
-    Route::put('/{id}', [UserController::class, 'update']);     // Menyimpan perubahan data user
-    Route::delete('/{id}', [UserController::class, 'destroy']); // Menghapus data user
+    Route::get('/{id}', [UserController::class, 'show']);
+    Route::get('/{id}/edit', [UserController::class, 'edit']);
+    Route::put('/{id}', [UserController::class, 'update']);
+    Route::get('/{id}/edit_ajax', [UserController::class, 'edit_ajax']);
+    Route::put('/{id}/update_ajax', [UserController::class, 'update_ajax']);
+    Route::get('/{id}/delete_ajax', [UserController::class, 'confirm_ajax']);
+    Route::delete('/{id}/delete_ajax', [UserController::class, 'delete_ajax']);
+    Route::delete('/{id}', [UserController::class, 'destroy']); 
 });
 
 Route::group(['prefix' => 'level'], function() {
