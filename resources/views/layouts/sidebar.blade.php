@@ -32,14 +32,14 @@
                     </p>
                 </a>
             </li>
-            <li class="nav-header">
+            <li class="nav-header">Data Pengguna</li>
             <li class="nav-item">
                 <a href="{{ url('/level') }}" class="nav-link {{ ($activeMenu == 'level')? 'active' : '' }}">
                     <i class="nav-icon far fa-user"></i>
                     <p>Level User</p>
                 </a>
             </li>
-            </li>
+
             <li class="nav-item">
                 <a href="{{ url('/user') }}" class="nav-link {{ ($activeMenu == 'user')? 
             'active' : '' }}">
@@ -71,16 +71,17 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{ url('/barang') }}" class="nav-link {{ ($activeMenu ==
+                <a href="{{ url('/penjualan') }}" class="nav-link {{ ($activeMenu ==
             'penjualan')? 'active' : '' }} ">
                     <i class="nav-icon fas fa-cash-register"></i>
                     <p>Transaksi Penjualan</p>
                 </a>
             </li>
+            <li class="nav-header">Data Pengiriman</li>
             <li class="nav-item">
                 <a href="{{ url('/supplier') }}" class="nav-link {{ ($activeMenu ==
             'supplier')? 'active' : '' }} ">
-                    <i class="nav-icon fas fa-box"></i>
+                    <i class="nav-icon fas fa-truck"></i>
                     <p>Supplier</p>
                 </a>
             </li>

@@ -100,23 +100,23 @@ class UserController extends Controller
     }
 
     // Menampilkan detail user
-    public function show(string $id)
-    {
-        $user = UserModel::with('level')->find($id);
+    // public function show(string $id)
+    // {
+    //     $user = UserModel::with('level')->find($id);
 
-        $breadcrumb = (object) [
-            'title' => 'Detail User',
-            'list' => ['Home', 'User', 'Detail']
-        ];
+    //     $breadcrumb = (object) [
+    //         'title' => 'Detail User',
+    //         'list' => ['Home', 'User', 'Detail']
+    //     ];
 
-        $page = (object) [
-            'title' => 'Detail User',
-        ];
+    //     $page = (object) [
+    //         'title' => 'Detail User',
+    //     ];
 
-        $activeMenu = 'user';
+    //     $activeMenu = 'user';
 
-        return view('user.show', ['breadcrumb' => $breadcrumb, 'page' => $page, 'user' => $user, 'activeMenu' => $activeMenu]);
-    }
+    //     return view('user.show', ['breadcrumb' => $breadcrumb, 'page' => $page, 'user' => $user, 'activeMenu' => $activeMenu]);
+    // }
 
     public function edit(string $id)
     {
@@ -274,6 +274,33 @@ class UserController extends Controller
                 return response()->json([
                     'status' => true,
                     'message' => 'Data berhasil dihapus'
+                ]);
+            } else {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Data tidak ditemukan'
+                ]); 
+            }
+        }    
+        return redirect('/');
+    }
+
+    public function show_ajax(string $id)
+    {
+        $user = UserModel::find($id);
+
+        return view('user.show_ajax', ['user' => $user]);
+    }
+
+    public function detail_ajax(Request $request, $id) 
+    {
+        if ($request->ajax() || $request->wantsJson()) {
+            $user = UserModel::find($id);
+            if ($user) {
+                $user->delete();
+                return response()->json([
+                    'status' => true,
+                    'message' => 'Data berhasil ditampilkan'
                 ]);
             } else {
                 return response()->json([
