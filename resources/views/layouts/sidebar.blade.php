@@ -2,7 +2,7 @@
     <!-- Sidebar user (optional) -->
     <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-            <img src="{{ url('/adminlte/dist/img/user2-160x160.jpg')}}" class="img-circle elevation-2" alt="User Image">
+            <img src="{{ url('/adminlte/dist/img/agung-nugroho2.jpg')}}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
             <a href="#" class="d-block">Agung Nugroho</a>
@@ -49,8 +49,7 @@
                 </a>
             </li> --}}
 
-            <li
-                class="nav-item has-treeview {{ ($activeMenu == 'level' || $activeMenu == 'user') ? 'menu-open' : '' }}">
+            <li class="nav-item has-treeview {{ ($activeMenu == 'level' || $activeMenu == 'user') ? 'menu-open' : '' }}">
                 <a href="#" class="nav-link">
                     <i class="nav-icon fas fa-users"></i>
                     <p>
@@ -74,8 +73,7 @@
                 </ul>
             </li>
 
-            <li
-                class="nav-item has-treeview {{ ($activeMenu == 'kategori' || $activeMenu == 'barang') ? 'menu-open' : '' }}">
+            <li class="nav-item has-treeview {{ ($activeMenu == 'kategori' || $activeMenu == 'barang') ? 'menu-open' : '' }}">
                 <a href="#" class="nav-link">
                     <i class="nav-icon fas fa-boxes"></i>
                     <p>
