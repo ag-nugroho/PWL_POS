@@ -134,5 +134,10 @@
               <i class="fas fa-th-large"></i>
             </a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url('logout') }}" >
+              <i class="nav-icon fas fa-sign-out-alt"></i>
+            </a>
+        </li>
         </ul>
       </nav>
