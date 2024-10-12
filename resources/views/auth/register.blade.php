@@ -24,7 +24,7 @@
             <div class="card-header text-center"><a href="{{ url('/') }}" class="h1"><b>Admin</b>LTE</a></div>
             <div class="card-body">
                 <p class="login-box-msg">Register a new account</p>
-                <form action="{{ url('register') }}" method="POST" id="form-register">
+                <form action="{{ url('postregister') }}" method="POST" id="form-register">
                     @csrf
                     <div class="input-group mb-3">
                         <select name="level_id" id="level_id" class="form-control" required>
@@ -103,70 +103,75 @@
             }
         });
         $(document).ready(function() {
-        $("#form-register").validate({
-            rules: {
-                level_id: {
-                    required: true,
-                    number: true
-                },
-                username: {
-                    required: true,
-                    minlength: 3,
-                    maxlength: 20
-                },
-                nama: {
-                    required: true,
-                    minlength: 3,
-                    maxlength: 100
-                },
-                password: {
-                    required: true,
-                    minlength: 6,
-                    maxlength: 20
-                }
-            },
-            submitHandler: function(form) {
-                $.ajax({
-                    url: form.action,
-                    type: form.method,
-                    data: $(form).serialize(),
-                    success: function(response) {
-                        if (response.status) {
-                            $('#myModal').modal('hide');
-                            Swal.fire({
-                                icon: 'success',
-                                title: 'Berhasil',
-                                text: response.message
-                            });
-                            dataUser.ajax.reload();
-                        } else {
-                            $('.error-text').text('');
-                            $.each(response.msgField, function(prefix, val) {
-                                $('#error-' + prefix).text(val[0]);
-                            });
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Terjadi Kesalahan',
-                                text: response.message
-                            });
-                        }
+            $("#form-register").validate({
+                rules: {
+                    level_id: {
+                        required: true,
+                        number: true
+                    },
+                    username: {
+                        required: true,
+                        minlength: 3,
+                        maxlength: 20
+                    },
+                    nama: {
+                        required: true,
+                        minlength: 3,
+                        maxlength: 100
+                    },
+                    password: {
+                        required: true,
+                        minlength: 6,
+                        maxlength: 20
                     }
-                });
-                return false;
-            },
-            errorElement: 'span',
-            errorPlacement: function(error, element) {
-                error.addClass('invalid-feedback');
-                element.closest('.form-group').append(error);
-            },
-            highlight: function(element, errorClass, validClass) {
-                $(element).addClass('is-invalid');
-            },
-            unhighlight: function(element, errorClass, validClass) {
-                $(element).removeClass('is-invalid');
-            }
+                },
+                submitHandler: function(form) {
+                    $.ajax({
+                        url: form.action,
+                        type: form.method,
+                        data: $(form).serialize(),
+                        success: function(response) {
+                            if (response.status) {
+                                // Tampilkan pesan sukses
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Berhasil',
+                                    text: response.message
+                                }).then((result) => {
+                                    // Setelah pesan sukses, arahkan ke halaman login
+                                    if (result.isConfirmed) {
+                                        window.location.href = response.redirect;
+                                    }
+                                });
+                            } else {
+                                // Tampilkan error validasi jika ada
+                                $('.error-text').text('');
+                                $.each(response.msgField, function(prefix, val) {
+                                    $('#error-' + prefix).text(val[0]);
+                                });
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Terjadi Kesalahan',
+                                    text: response.message
+                                });
+                            }
+                        }
+                    });
+                    return false;
+                },
+                errorElement: 'span',
+                errorPlacement: function(error, element) {
+                    error.addClass('invalid-feedback');
+                    element.closest('.form-group').append(error);
+                },
+                highlight: function(element, errorClass, validClass) {
+                    $(element).addClass('is-invalid');
+                },
+                unhighlight: function(element, errorClass, validClass) {
+                    $(element).removeClass('is-invalid');
+                }
+            });
         });
-});
-</script>
+    </script>    
 </body>
 </html>

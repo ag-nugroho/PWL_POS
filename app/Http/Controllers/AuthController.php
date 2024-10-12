@@ -61,26 +61,27 @@ class AuthController extends Controller
                 'nama' => 'required|string|max:100',
                 'password' => 'required|min:6'
             ];
-
+    
             $validator = Validator::make($request->all(), $rules);
-
+    
             if ($validator->fails()) {
                 return response()->json([
                     'status' => false,
                     'message' => 'Validasi Gagal',
                     'msgField' => $validator->errors(),
-                    'redirect' => url('/register')
+                    'redirect' => url('register')
                 ]);
             }
-
+    
             UserModel::create($request->all());
             return response()->json([
                 'status' => true,
                 'message' => 'Registrasi Berhasil',
-                'redirect' => url('/login')
-                
+                'redirect' => url('login')
             ]);
-            return redirect('/register');
         }
+        return redirect()->route('login');
     }
+    
+    
 }
