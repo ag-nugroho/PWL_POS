@@ -14,6 +14,7 @@ class WelcomeController extends Controller
         'title' => 'Selamat Datang',
         'list' => ['Home', 'Welcome']
         ];
+        
 
         $activeMenu = 'dashboard';
 

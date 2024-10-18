@@ -5,8 +5,10 @@
         <div class="card-header">
             <h3 class="card-title">{{ $page->title }}</h3>
             <div class="card-tools">
-                <a href="{{ url('user/create') }}" class="btn btn-sm btn-primary mt-1">Tambah</a>
-                <button onclick="modalAction('{{ url('user/create_ajax') }}')" class="btn btn-sm btn-success mt-1">Tambah Ajax</button>
+                <button onclick="modalAction('{{ url('/user/import') }}')" class="btn btn-info"><i class="fa fa-file-import"></i>  Import XLSX</button>
+                <a href="{{ url('/user/export_excel') }}" class="btn btn-primary"><i class="fa fa-file-excel"></i>  Export XLSX</a>
+                <a href="{{ url('/user/export_pdf') }}" class="btn btn-warning"><i class="fa fa-file-pdf"></i>  Export PDF</a>
+                <button onclick="modalAction('{{ url('/user/create_ajax') }}')" class="btn btn-success"><i class="fa fa-user-plus"></i>  Tambah Data</button>
             </div>
         </div>
         <div class="card-body">
@@ -35,7 +37,7 @@
             <table class="table table-border table-striped table-hover table-sm" id="table_user">
                 <thead>
                     <tr>
-                        <th>ID</th>
+                        <th>No</th>
                         <th>Username</th>
                         <th>Nama</th>
                         <th>Level Pengguna</th>
