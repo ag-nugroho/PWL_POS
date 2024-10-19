@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+
 class UserModel extends Authenticatable
 {
     use HasFactory;
@@ -37,5 +38,10 @@ class UserModel extends Authenticatable
     public function getRole()
     {
         return $this->level->level_kode;
+    }
+
+    public function profile()
+    {
+        return $this->hasOne(ProfileModel::class);
     }
 }

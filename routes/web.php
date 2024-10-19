@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\LevelController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WelcomeController;
@@ -36,6 +37,9 @@ Route::post('/postregister', [AuthController::class, 'postregister']);
 Route::middleware(['auth'])->group(function(){
     
     Route::get('/', [WelcomeController::class, 'index']);
+
+    Route::get('/profile', [ProfileController::class, 'index']);
+    Route::post('update', [ProfileController::class, 'update'])->name('update');
 
     Route::middleware(['authorize:ADM'])->group(function() {
         Route::get('/user', [UserController::class, 'index']);
