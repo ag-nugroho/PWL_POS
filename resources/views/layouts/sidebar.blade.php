@@ -24,7 +24,7 @@
             <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
             <div class="input-group-append">
                 <button class="btn btn-sidebar">
-                    <i class="fas fa-search fa-fw"></i>
+                    <i class="bi bi-search"></i>
                 </button>
             </div>
         </div>
@@ -35,7 +35,7 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
             <li class="nav-item">
                 <a href="{{ url('/') }}" class="nav-link {{ ($activeMenu == 'dashboard')? 'active' : ''}}">
-                    <i class="nav-icon fas fa-tachometer-alt"></i>
+                    <i class="bi bi-columns-gap"></i>
                     <p>
                         Dashboard
                     </p>
@@ -60,106 +60,101 @@
 
             <li class="nav-item has-treeview {{ ($activeMenu == 'level' || $activeMenu == 'user') ? 'menu-open' : '' }}">
                 <a href="#" class="nav-link">
-                    <i class="nav-icon fas fa-users"></i>
+                    <i class="bi bi-people"></i>
                     <p>
                         Data Pengguna
-                        <i class="right fas fa-angle-left"></i>
+                        <i class="right bi bi-caret-left"></i>
                     </p>
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
                         <a href="{{ url('/level') }}" class="nav-link {{ ($activeMenu == 'level') ? 'active' : '' }}">
-                            <i class="far fa-user nav-icon"></i>
+                            <i class="bi bi-person"></i>
                             <p>Level User</p>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="{{ url('/user') }}" class="nav-link {{ ($activeMenu == 'user') ? 'active' : '' }}">
-                            <i class="far fa-user nav-icon"></i>
+                            <i class="bi bi-person"></i>
                             <p>Data User</p>
                         </a>
                     </li>
                 </ul>
             </li>
 
-            <li class="nav-item has-treeview {{ ($activeMenu == 'kategori' || $activeMenu == 'barang') ? 'menu-open' : '' }}">
+            <li class="nav-item has-treeview {{ ($activeMenu == 'kategori' || $activeMenu == 'barang' || $activeMenu == 'stok') ? 'menu-open' : '' }}">
                 <a href="#" class="nav-link">
-                    <i class="nav-icon fas fa-boxes"></i>
+                    <i class="bi bi-boxes"></i>
                     <p>
                         Data Barang
-                        <i class="right fas fa-angle-left"></i>
+                        <i class="right bi bi-caret-left"></i>
                     </p>
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
                         <a href="{{ url('/kategori') }}"
                             class="nav-link {{ ($activeMenu == 'kategori') ? 'active' : '' }}">
-                            <i class="far fa-bookmark nav-icon"></i>
+                            <i class="bi bi-collection"></i>
                             <p>Kategori Barang</p>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="{{ url('/barang') }}" class="nav-link {{ ($activeMenu == 'barang') ? 'active' : '' }}">
-                            <i class="far fa-list-alt nav-icon"></i>
+                            <i class="bi bi-list-ul"></i>
                             <p>Data Barang</p>
                         </a>
                     </li>
-                    {{-- <li class="nav-item">
+                    <li class="nav-item">
                         <a href="{{ url('/stok') }}" class="nav-link {{ ($activeMenu == 'stok') ? 'active' : '' }}">
-                            <i class="fas fa-cubes nav-icon"></i>
+                            <i class="bi bi-box2"></i>
                             <p>Stok Barang</p>
                         </a>
-                    </li> --}}
+                    </li>
                 </ul>
             </li>
 
-            {{-- <li class="nav-header">Data Barang</li>
-            <li class="nav-item">
-                <a href="{{ url('/kategori') }}" class="nav-link {{ ($activeMenu ==
-            'kategori')? 'active' : '' }} ">
-                    <i class="nav-icon far fa-bookmark"></i>
-                    <p>Kategori Barang</p>
+            <li class="nav-item has-treeview {{ ($activeMenu == 'penjualan' || $activeMenu == 'detailpenjualan') ? 'menu-open' : '' }}">
+                <a href="#" class="nav-link">
+                    <i class="bi bi-cash"></i>
+                    <p>
+                        Data Transaksi
+                        <i class="right bi bi-caret-left"></i>
+                    </p>
                 </a>
-            </li>
-            <li class="nav-item">
-                <a href="{{ url('/barang') }}" class="nav-link {{ ($activeMenu ==
-            'barang')? 'active' : '' }} ">
-                    <i class="nav-icon far fa-list-alt"></i>
-                    <p>Data Barang</p>
-                </a>
-            </li> --}}
-
-            <li class="nav-header">Data Transaksi</li>
-            <li class="nav-item">
-                <a href="{{ url('/stok') }}" class="nav-link {{ ($activeMenu == 'stok')? 
-            'active' : '' }} ">
-                    <i class="nav-icon fas fa-cubes"></i>
-                    <p>Stok Barang</p>
-                </a>
-            </li>
-
-            <li class="nav-item">
-                <a href="{{ url('/penjualan') }}" class="nav-link {{ ($activeMenu ==
-            'penjualan')? 'active' : '' }} ">
-                    <i class="nav-icon fas fa-cash-register"></i>
-                    <p>Transaksi Penjualan</p>
-                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="{{ url('/penjualan') }}"
+                            class="nav-link {{ ($activeMenu == 'penjualan') ? 'active' : '' }}">
+                            <i class="bi bi-credit-card-2-front"></i>
+                            <p>Transaksi Penjualan</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ url('/detailpenjualan') }}" class="nav-link {{ ($activeMenu == 'detailpenjualan') ? 'active' : '' }}">
+                            <i class="bi bi-calculator"></i>
+                            <p>Detail Penjualan</p>
+                        </a>
+                    </li>
+                </ul>
             </li>
 
-            <li class="nav-header">Data Pengiriman</li>
-            <li class="nav-item">
-                <a href="{{ url('/supplier') }}" class="nav-link {{ ($activeMenu ==
-            'supplier')? 'active' : '' }} ">
-                    <i class="nav-icon fas fa-truck"></i>
-                    <p>Supplier</p>
+            <li class="nav-item has-treeview {{ ($activeMenu == 'supplier') ? 'menu-open' : '' }}">
+                <a href="#" class="nav-link">
+                    <i class="bi bi-truck"></i>
+                    <p>
+                        Data Pengiriman
+                        <i class="right bi bi-caret-left"></i>
+                    </p>
                 </a>
-            </li>
-            <li class="nav-header"></li>
-            <li class="nav-item">
-                <a href="{{ url('logout') }}" class="nav-link">
-                    <i class="nav-icon fas fa-sign-out-alt"></i>
-                    <p>Logout</p>
-                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="{{ url('/supplier') }}"
+                            class="nav-link {{ ($activeMenu == 'supplier') ? 'active' : '' }}">
+                            <i class="bi bi-box-seam"></i>
+                            <p>Supplier</p>
+                        </a>
+                    </li>
+                </ul>
             </li>
         </ul>        
     </nav>

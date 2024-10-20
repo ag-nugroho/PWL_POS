@@ -13,10 +13,10 @@
                     <p>Total Pengguna</p>
                 </div>
                 <div class="icon">
-                    <i class="fas fa-users"></i>
+                    <i class="bi bi-people"></i>
                 </div>
                 <a href="{{ url('/user') }}" class="small-box-footer">
-                    Lihat Detail <i class="fas fa-arrow-circle-right"></i>
+                    Lihat Detail <i class="bi bi-arrow-right-circle"></i>
                 </a>
             </div>
         </div>
@@ -28,10 +28,10 @@
                     <p>Total Barang</p>
                 </div>
                 <div class="icon">
-                    <i class="fas fa-boxes"></i>
+                    <i class="bi bi-box-seam"></i>
                 </div>
                 <a href="{{ url('/barang') }}" class="small-box-footer">
-                    Lihat Detail <i class="fas fa-arrow-circle-right"></i>
+                    Lihat Detail <i class="bi bi-arrow-right-circle"></i>
                 </a>
             </div>
         </div>
@@ -43,10 +43,10 @@
                     <p>Total Penjualan</p>
                 </div>
                 <div class="icon">
-                    <i class="fas fa-shopping-cart"></i>
+                    <i class="bi bi-cart"></i>
                 </div>
                 <a href="{{ url('/penjualan') }}" class="small-box-footer">
-                    Lihat Detail <i class="fas fa-arrow-circle-right"></i>
+                    Lihat Detail <i class="bi bi-arrow-right-circle"></i>
                 </a>
             </div>
         </div>
@@ -58,10 +58,10 @@
                     <p>Total Supplier</p>
                 </div>
                 <div class="icon">
-                    <i class="fas fa-truck"></i>
+                    <i class="bi bi-truck"></i>
                 </div>
                 <a href="{{ url('/supplier') }}" class="small-box-footer">
-                    Lihat Detail <i class="fas fa-arrow-circle-right"></i>
+                    Lihat Detail <i class="bi bi-arrow-right-circle"></i>
                 </a>
             </div>
         </div>
