@@ -178,5 +178,32 @@ class StokController extends Controller
         
         return redirect('/stok');
     }
+
+    public function confirm_ajax(string $id)
+    {
+        $stok = StokModel::find($id);
+
+        return view('stok.confirm_ajax', ['stok' => $stok]);
+    }
+
+    public function delete_ajax(Request $request, $id) 
+    {
+        if ($request->ajax() || $request->wantsJson()) {
+            $stok = StokModel::find($id);
+            if ($stok) {
+                $stok->delete();
+                return response()->json([
+                    'status' => true,
+                    'message' => 'Data berhasil dihapus'
+                ]);
+            } else {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Data tidak ditemukan'
+                ]); 
+            }
+        }    
+        return redirect('/stok');
+    }
     
 }
