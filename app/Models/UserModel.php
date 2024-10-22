@@ -30,6 +30,10 @@ class UserModel extends Authenticatable
         return $this->hasMany(StokModel::class, 'user_id', 'user_id');
     }
 
+    public function penjualans() : HasMany {
+        return $this->hasMany(PenjualanModel::class, 'penjualan_id', 'penjualan_id');
+    }
+
     public function getRoleName(): string
     {
         return $this->level->level_nama;

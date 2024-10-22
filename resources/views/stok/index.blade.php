@@ -88,6 +88,7 @@
                         d.supplier_id = $('#supplier_id').val();
                         d.barang_id = $('#barang_id').val();
                         d.user_id = $('#user_id').val();
+                        return d;
                     }
                 },
                 columns:[

@@ -1,4 +1,4 @@
-@empty($user)
+@empty($penjualan)
     <div id="modal-master" class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -12,52 +12,49 @@
                     <h5><i class="icon fas fa-ban"></i> Kesalahan!!!</h5>
                     Data yang anda cari tidak ditemukan
                 </div>
-                <a href="{{ url('/user') }}" class="btn btn-warning">Kembali</a>
+                <a href="{{ url('/penjualan') }}" class="btn btn-warning">Kembali</a>
             </div>
         </div>
     </div>
 @else
-    <form action="{{ url('/user/' . $user->user_id . '/update_ajax') }}" method="POST" id="form-edit">
+    <form action="{{ url('/penjualan/' . $penjualan->penjualan_id . '/update_ajax') }}" method="POST" id="form-edit">
         @csrf
         @method('PUT')
         <div id="modal-master" class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Edit Data User</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Edit Data Penjualan</h5>
                     <button type="button" class="close" data-dismiss="modal" arialabel="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label>Level Pengguna</label>
-                        <select name="level_id" id="level_id" class="form-control" required>
-                            <option value="">- Pilih Level -</option>
-                            @foreach ($level as $l)
-                                <option {{ $l->level_id == $user->level_id ? 'selected' : '' }} value="{{ $l->level_id }}">
-                                    {{ $l->level_nama }}</option>
+                        <label>Penanggung Jawab</label>
+                        <select name="user_id" id="user_id" class="form-control" required>
+                            <option value="">- Pilih PJ -</option>
+                            @foreach ($user as $l)
+                                <option {{ $l->user_id == $penjualan->user_id ? 'selected' : '' }} value="{{ $l->user_id }}">
+                                    {{ $l->nama }}</option>
                             @endforeach
                         </select>
-                        <small id="error-level_id" class="error-text form-text textdanger"></small>
+                        <small id="error-user_id" class="error-text form-text textdanger"></small>
                     </div>
                     <div class="form-group">
-                        <label>Username</label>
-                        <input value="{{ $user->username }}" type="text" name="username" id="username"
+                        <label>Pembeli</label>
+                        <input value="{{ $penjualan->pembeli }}" type="text" name="pembeli" id="pembeli"
                             class="form-control" required>
-                        <small id="error-username" class="error-text form-text textdanger"></small>
+                        <small id="error-pembeli" class="error-text form-text textdanger"></small>
                     </div>
                     <div class="form-group">
-                        <label>Nama</label>
-                        <input value="{{ $user->nama }}" type="text" name="nama" id="nama" class="form-control"
-                            required>
-                        <small id="error-nama" class="error-text form-text text-danger"></small>
+                        <label>Kode Penjualan</label>
+                        <input value="{{ $penjualan->penjualan_kode }}" type="text" name="penjualan_kode" id="penjualan_kode" class="form-control" required>
+                        <small id="error-penjualan_kode" class="error-text form-text text-danger"></small>
                     </div>
                     <div class="form-group">
-                        <label>Password</label>
-                        <input value="" type="password" name="password" id="password" class="form-control">
-                        <small class="form-text text-muted">Abaikan jika tidak ingin ubah
-                            password</small>
-                        <small id="error-password" class="error-text form-text textdanger"></small>
+                        <label>Tanggal Penjualan</label>
+                        <input value="{{ $penjualan->penjualan_tanggal }}" type="datetime-local" name="penjualan_tanggal" id="penjualan_tanggal" class="form-control" required>
+                        <small id="error-penjualan_tanggal" class="error-text form-text textdanger"></small>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -71,10 +68,10 @@
         $(document).ready(function() {
             $("#form-edit").validate({
                 rules: {
-                    level_id: { required: true, number: true },
-                    username: { required: true, minlength: 3, maxlength: 20 },
-                    nama: { required: true, minlength: 3, maxlength: 100 },
-                    password: { minlength: 6, maxlength: 20 }
+                    user_id: { required: true, number: true },
+                    pembeli: { required: true, minlength: 3, maxlength: 50 },
+                    penjualan_kode: { required: true, minlength: 3, maxlength: 20 },
+                    penjualan_tanggal: { required: true, number:true }
                 },
                 submitHandler: function(form) {
                     $.ajax({
@@ -89,7 +86,7 @@
                                     title: 'Berhasil',
                                     text: response.message
                                 });
-                                dataUser.ajax.reload();
+                                dataPenjualan.ajax.reload();
                             } else {
                                 $('.error-text').text('');
                                 $.each(response.msgField, function(prefix, val) {
