@@ -29,7 +29,19 @@
                                     <option value="{{ $item->supplier_id }}">{{ $item->supplier_nama }}</option>
                                 @endforeach
                             </select>
-                            <small class="form-text text-muted">Supplier</small>
+                            <select name="barang_id" id="barang_id" class="form-control" required>
+                                <option value="">- Semua -</option>
+                                @foreach ($barang as $b)
+                                    <option value="{{ $b->barang_id }}">{{ $b->barang_nama }}</option>
+                                @endforeach
+                            </select>
+                            <select name="user_id" id="user_id" class="form-control" required>
+                                <option value="">- Semua -</option>
+                                @foreach ($user as $u)
+                                    <option value="{{ $u->user_id }}">{{ $u->nama }}</option>
+                                @endforeach
+                            </select>
+                            <small class="form-text text-muted">Filter</small>
                         </div>
                     </div>
                 </div>
@@ -40,7 +52,7 @@
                         <th>No</th>
                         <th>Nama Supplier</th>
                         <th>Nama Barang</th>
-                        <th>Nama</th>
+                        <th>PJ</th>
                         <th>Tanggal</th>
                         <th>Jumlah</th>
                         <th>Aksi</th>
@@ -89,18 +101,18 @@
                         data: "supplier.supplier_nama",
                         className: "",
                         orderable: false,
-                        searchable: false
+                        searchable: true
                     },{
                         data: "barang.barang_nama",
                         className: "",
                         orderable:false,
-                        searchable: false
+                        searchable: true
                     },{
                         // mengambil data level dari hasil ORM berelasi
                         data: "user.nama",
                         className: "",
                         orderable: false,
-                        searchable: false
+                        searchable: true
                     },{
                         data: "stok_tanggal",
                         className: "",
@@ -120,6 +132,12 @@
                 ]
             });
             $('#supplier_id').on('change', function(){
+                dataStok.ajax.reload();
+            });
+            $('#barang_id').on('change', function(){
+                dataStok.ajax.reload();
+            });
+            $('#user_id').on('change', function(){
                 dataStok.ajax.reload();
             });
         });
