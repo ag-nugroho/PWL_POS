@@ -5,10 +5,10 @@
     <div class="card-header">
         <h3 class="card-title">{{ $page->title }}</h3>
         <div class="card-tools">
-            <button onclick="modalAction('{{ url('/kategori/import') }}')" class="btn btn-info"><i class="fa fa-file-import"></i>  Import XLSX</button>
-            <a href="{{ url('/kategori/export_excel') }}" class="btn btn-primary"><i class="fa fa-file-excel"></i>  Export XLSX</a>
-            <a href="{{ url('/kategori/export_pdf') }}" class="btn btn-warning"><i class="fa fa-file-pdf"></i>  Export PDF</a>
-            <button onclick="modalAction('{{ url('/kategori/create_ajax') }}')" class="btn btn-success"><i class="fa fa-plus"></i>  Tambah Data</button>
+            <button onclick="modalAction('{{ url('/kategori/import') }}')" class="btn btn-info"><i class="bi bi-file-earmark-excel"></i>  Import XLSX</button>
+            <a href="{{ url('/kategori/export_excel') }}" class="btn btn-primary"><i class="bi bi-file-earmark-excel"></i>  Export XLSX</a>
+            <a href="{{ url('/kategori/export_pdf') }}" class="btn btn-warning"><i class="bi bi-file-earmark-pdf"></i>  Export PDF</a>
+            <button onclick="modalAction('{{ url('/kategori/create_ajax') }}')" class="btn btn-success"><i class="bi bi-plus"></i>  Tambah Data</button>
         </div>
     </div>
     <div class="card-body">

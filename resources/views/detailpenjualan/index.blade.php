@@ -5,10 +5,10 @@
         <div class="card-header">
             <h3 class="card-title">{{ $page->title }}</h3>
             <div class="card-tools">
-                <button onclick="modalAction('{{ url('/penjualan/import') }}')" class="btn btn-info"><i class="bi bi-file-earmark-excel"></i>  Import XLSX</button>
-                <a href="{{ url('/penjualan/export_excel') }}" class="btn btn-primary"><i class="bi bi-file-earmark-excel"></i>  Export XLSX</a>
-                <a href="{{ url('/penjualan/export_pdf') }}" class="btn btn-warning"><i class="bi bi-file-earmark-pdf"></i>  Export PDF</a>
-                <button onclick="modalAction('{{ url('/penjualan/create_ajax') }}')" class="btn btn-success"><i class="bi bi-cart-plus"></i>  Tambah Data</button>
+                <button onclick="modalAction('{{ url('/detailpenjualan/import') }}')" class="btn btn-info"><i class="bi bi-file-earmark-excel"></i>  Import XLSX</button>
+                <a href="{{ url('/detailpenjualan/export_excel') }}" class="btn btn-primary"><i class="bi bi-file-earmark-excel"></i>  Export XLSX</a>
+                <a href="{{ url('/detailpenjualan/export_pdf') }}" class="btn btn-warning"><i class="bi bi-file-earmark-pdf"></i>  Export PDF</a>
+                <button onclick="modalAction('{{ url('/detailpenjualan/create_ajax') }}')" class="btn btn-success"><i class="bi bi-cart-plus"></i>  Tambah Data</button>
             </div>
         </div>
         <div class="card-body">
@@ -23,25 +23,25 @@
                     <div class="form-group row">
                         <label class="col-1 control-label col-form-label">Filter:</label>
                         <div class="col-3">
-                            <select name="user_id" id="user_id" class="form-control" required>
+                            <select name="penjualan_id" id="penjualan_id" class="form-control" required>
                                 <option value="">- Semua -</option>
-                                @foreach ($user as $item)
-                                    <option value="{{ $item->user_id }}">{{ $item->nama }}</option>
+                                @foreach ($penjualan as $item)
+                                    <option value="{{ $item->penjualan_id }}">{{ $item->penjualan_nama }}</option>
                                 @endforeach
                             </select>
-                            <small class="form-text text-muted">Penanggung Jawab</small>
+                            <small class="form-text text-muted">Level Pengguna</small>
                         </div>
                     </div>
                 </div>
             </div>
-            <table class="table table-border table-striped table-hover table-sm" id="table_penjualan">
+            <table class="table table-border table-striped table-hover table-sm" id="table_detailpenjualan">
                 <thead>
                     <tr>
                         <th>No</th>
-                        <th>Pembeli</th>
                         <th>Kode Penjualan</th>
-                        <th>Tanggal Penjualan</th>
-                        <th>Penanggung Jawab</th>
+                        <th>Nama Barang</th>
+                        <th>Harga</th>
+                        <th>Total Pembelian</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
@@ -62,17 +62,17 @@
             });
         }
 
-        var dataPenjualan;
+        var dataDetailPenjualan;
         $(document).ready(function(){
-            dataPenjualan = $('#table_penjualan').DataTable({
+            dataDetailPenjualan = $('#table_detailpenjualan').DataTable({
                 //serverSide: true, jika ingin menggunakan server side processing
                 serverSide: true,
                 ajax:{
-                    "url": "{{ url('penjualan/list') }}",
+                    "url": "{{ url('detailpenjualan/list') }}",
                     "dataType": "json",
                     "type": "POST",
                     "data": function (d){
-                        d.user_id = $('#user_id').val();
+                        d.penjualan_id = $('#penjualan_id').val();
                     }
                 },
                 columns:[
@@ -83,25 +83,26 @@
                         orderable: false,
                         searchable: false
                     },{
-                        data: "pembeli",
+                        data: "penjualan.penjualan_kode",
+                        className: "",
+                        orderable: false,
+                        searchable: false
+                    },{
+                        data: "barang.barang_nama",
+                        className: "",
+                        orderable:false,
+                        searchable: false
+                    },{
+                        // mengambil data level dari hasil ORM berelasi
+                        data: "harga",
                         className: "",
                         orderable: true,
                         searchable: true
                     },{
-                        data: "penjualan_kode",
+                        data: "jumlah",
                         className: "",
-                        orderable:true,
+                        orderable: true,
                         searchable: true
-                    },{
-                        data: "penjualan_tanggal",
-                        className: "",
-                        orderable:true,
-                        searchable: true
-                    },{
-                        data: "user.nama",
-                        className: "",
-                        orderable: false,
-                        searchable: false
                     },{
                         data: "aksi",
                         className: "",
@@ -110,8 +111,8 @@
                     }
                 ]
             });
-            $('#user_id').on('change', function(){
-                dataPenjualan.ajax.reload();
+            $('#penjualan_id').on('change', function(){
+                dataDetailPenjualan.ajax.reload();
             });
         });
     </script>
