@@ -37,9 +37,9 @@
         </div>
         <!-- Kartu Penjualan -->
         <div class="col-lg-3 col-6">
-            <div class="small-box bg-warning">
+            <div class="small-box bg-gradient-blue">
                 <div class="inner">
-                    <h3></h3>
+                    <h3>{{ $totalPenjualan }}</h3>
                     <p>Total Penjualan</p>
                 </div>
                 <div class="icon">
@@ -67,6 +67,80 @@
         </div>
     </div>
 
-</div>
+    <div class="container-fluid">
+        <!-- Row 1: Kartu Statistik -->
+        <div class="row">
+            <!-- Kartu statistik bisa tetap seperti yang sebelumnya -->
+        </div>
 
+        <!-- Row 2: Chart Penjualan, Pengguna, Barang, Supplier dan Kalender -->
+        <div class="row">
+            <!-- Kolom Chart -->
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Statistik Penjualan, Pengguna, Barang, dan Supplier</h3>
+                    </div>
+                    <div class="card-body">
+                        <!-- Pie Chart Canvas -->
+                        <div class="chart">
+                            <canvas id="pieChart"
+                                style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Kolom Kalender -->
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Kalender</h3>
+                    </div>
+                    <div class="card-body">
+                        <!-- Kalender -->
+                        <div id="calender" style="width: 100%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
+
+@push('js')
+<!-- Chart.js -->
+<script>
+    // Pie Chart
+    var ctx = document.getElementById('pieChart').getContext('2d');
+    var pieChart = new Chart(ctx, {
+        type: 'pie', // Tipe chart Pie
+        data: {
+            labels: ['Penjualan', 'Pengguna', 'Barang', 'Supplier'], // Label data
+            datasets: [{
+                data: [{{ $totalPenjualan }}, {{ $totalUser }}, {{ $totalBarang }}, {{ $totalSupplier }}], // Data untuk chart
+                backgroundColor: [
+                    '#f56954',  // Merah
+                    '#00a65a',  // Hijau
+                    '#f39c12',  // Kuning
+                    '#00c0ef',  // Biru
+                ]
+            }]
+        },
+        options: {
+            maintainAspectRatio: false,
+            responsive: true,
+        }
+    });
+
+</script>
+<script>
+    $(function () {
+        //Initialize the calendar
+        $('#calendar').datetimepicker({
+            format: 'L',
+            inline: true
+        });
+    });
+</script>
+@endpush
