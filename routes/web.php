@@ -46,9 +46,6 @@ Route::middleware(['auth'])->group(function(){
     
     Route::get('/', [WelcomeController::class, 'index']);
 
-    Route::get('/profile', [ProfileController::class, 'index']);
-    Route::post('update', [ProfileController::class, 'update'])->name('update');
-
     Route::middleware(['authorize:ADM'])->group(function() {
         Route::get('/user', [UserController::class, 'index']);
         Route::post('user/list', [UserController::class, 'list']);
@@ -189,14 +186,19 @@ Route::middleware(['auth'])->group(function(){
         Route::get('/penjualan/export_pdf', [PenjualanController::class, 'export_pdf']);
     });
 
-    Route::middleware(['authorize:ADM,MNG,STF'])->group(function() {
-        Route::get('/detailpenjualan', [DetailPenjualanController::class, 'index']);         
-        Route::post('/detailpenjualan/list', [DetailPenjualanController::class, 'list']);
-        Route::get('/detailpenjualan/{id}/show_ajax', [DetailPenjualanController::class, 'show_ajax']);
-        Route::get('/detailpenjualan/{id}/delete_ajax', [DetailPenjualanController::class, 'confirm_ajax']);
-        Route::delete('/detailpenjualan/{id}/delete_ajax', [DetailPenjualanController::class, 'delete_ajax']);
-        Route::get('/detailpenjualan/export_excel', [DetailPenjualanController::class, 'export_excel']);
-        Route::get('/detailpenjualan/export_pdf', [DetailPenjualanController::class, 'export_pdf']);
+    // Route::middleware(['authorize:ADM,MNG,STF'])->group(function() {
+    //     Route::get('/detailpenjualan', [DetailPenjualanController::class, 'index']);         
+    //     Route::post('/detailpenjualan/list', [DetailPenjualanController::class, 'list']);
+    //     Route::get('/detailpenjualan/{id}/show_ajax', [DetailPenjualanController::class, 'show_ajax']);
+    //     Route::get('/detailpenjualan/{id}/delete_ajax', [DetailPenjualanController::class, 'confirm_ajax']);
+    //     Route::delete('/detailpenjualan/{id}/delete_ajax', [DetailPenjualanController::class, 'delete_ajax']);
+    //     Route::get('/detailpenjualan/export_excel', [DetailPenjualanController::class, 'export_excel']);
+    //     Route::get('/detailpenjualan/export_pdf', [DetailPenjualanController::class, 'export_pdf']);
+    // });
+
+    Route::group(['prefix' =>'profile'],function(){
+        Route::get('/', [ProfileController::class, 'index'])->name('profile.index');
+        Route::patch('/{id}', [ProfileController::class, 'update'])->name('profile.update');
     });
     
 });

@@ -142,12 +142,10 @@
     <li class="nav-item dropdown user-menu">
       <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
         <img 
-          @if (file_exists(public_path('storage/uploads/profile_pictures/'.auth()->user()->username.'/'.auth()->user()->username.'_profile.png')))
-            src="{{ asset('storage/uploads/profile_pictures/'. auth()->user()->username .'/'.auth()->user()->username.'_profile.png') }}"
-          @elseif (file_exists(public_path('storage/uploads/profile_pictures/'.auth()->user()->username.'/'.auth()->user()->username.'_profile.jpg')))
-            src="{{ asset('storage/uploads/profile_pictures/'. auth()->user()->username .'/'.auth()->user()->username.'_profile.jpg') }}"
-          @elseif (file_exists(public_path('storage/uploads/profile_pictures/'.auth()->user()->username.'/'.auth()->user()->username.'_profile.jpeg')))
-            src="{{ asset('storage/uploads/profile_pictures/'. auth()->user()->username .'/'.auth()->user()->username.'_profile.jpeg') }}"
+          @if (auth()->user()->profile_image)
+            src="{{ asset('storage/photos/' . auth()->user()->profile_image) }}" 
+          @else
+            src="{{ asset('default/path/to/default_profile.png') }}"
           @endif
           class="user-image rounded-circle shadow" alt="User Image" style="height: 35px; width: 35px;">
         <span class="d-none d-md-inline">{{ auth()->user()->nama }}</span>
@@ -163,5 +161,5 @@
         </a>
       </div>
     </li>
-  </ul>
+  </ul>    
 </nav>
