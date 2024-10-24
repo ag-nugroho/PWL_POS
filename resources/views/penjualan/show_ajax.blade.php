@@ -69,15 +69,15 @@
                             <tr>
                                 <td>{{ $detail->barang->barang_nama }}</td>
                                 <td>{{ $detail->jumlah }}</td>
-                                <td>{{ number_format($detail->harga, 0, ',', '.') }}</td>
-                                <td>{{ number_format($subTotal, 0, ',', '.') }}</td>
+                                <td>Rp. {{ number_format($detail->harga, 0, ',', '.') }}</td>
+                                <td>Rp. {{ number_format($subTotal, 0, ',', '.') }}</td>
                             </tr>
                         @endforeach
                     </tbody>
                     <tfoot>
                         <tr>
                             <td colspan="3"><strong>Total Keseluruhan</strong></td>
-                            <td><strong>{{ number_format($totalKeseluruhan, 0, ',', '.') }}</strong></td>
+                            <td><strong>Rp. {{ number_format($totalKeseluruhan, 0, ',', '.') }}</strong></td>
                         </tr>
                     </tfoot>                    
                 </table>
@@ -211,10 +211,10 @@
                             <h1>Invoice Penjualan</h1>
                         </div>
                         <div class="invoice-info">
-                            <p>PIC: ${{{ $penjualan->user->nama }}}</p>
-                            <p>Pembeli: ${{{ $penjualan->pembeli }}}</p>
-                            <p>Kode Penjualan: ${{{ $penjualan->penjualan_kode }}}</p>
-                            <p>Tanggal Penjualan: ${{{ $penjualan->penjualan_tanggal }}}</p>
+                            <p>PIC: {{{ $penjualan->user->nama }}}</p>
+                            <p>Pembeli: {{{ $penjualan->pembeli }}}</p>
+                            <p>Kode Penjualan: {{{ $penjualan->penjualan_kode }}}</p>
+                            <p>Tanggal Penjualan: {{{ $penjualan->penjualan_tanggal }}}</p>
                         </div>
                         <table>
                             <thead>
@@ -228,17 +228,17 @@
                             <tbody>
                                 @foreach($detailpenjualan as $detail)
                                     <tr>
-                                        <td>${{{ $detail->barang->barang_nama }}}</td>
-                                        <td>${{{ $detail->jumlah }}}</td>
-                                        <td>${{ number_format($detail->harga, 0, ',', '.') }}</td>
-                                        <td>${{ number_format($detail->jumlah * $detail->harga, 0, ',', '.') }}</td>
+                                        <td>{{{ $detail->barang->barang_nama }}}</td>
+                                        <td>{{{ $detail->jumlah }}}</td>
+                                        <td>Rp. {{ number_format($detail->harga, 0, ',', '.') }}</td>
+                                        <td>Rp. {{ number_format($detail->jumlah * $detail->harga, 0, ',', '.') }}</td>
                                     </tr>
                                 @endforeach
                             </tbody>
                             <tfoot>
                                 <tr>
                                     <td colspan="3" class="total">Total Keseluruhan</td>
-                                    <td class="total">${{ number_format($totalKeseluruhan, 0, ',', '.') }}</td>
+                                    <td class="total">Rp. {{ number_format($totalKeseluruhan, 0, ',', '.') }}</td>
                                 </tr>
                             </tfoot>
                         </table>

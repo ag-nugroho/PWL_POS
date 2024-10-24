@@ -7,6 +7,8 @@ use App\Models\DetailModel;
 use App\Models\PenjualanModel;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use PhpOffice\PhpSpreadsheet\IOFactory;
 use Yajra\DataTables\Facades\DataTables;
 
 class DetailPenjualanController extends Controller
@@ -85,5 +87,76 @@ class DetailPenjualanController extends Controller
             }
         }    
         return redirect('/detailpenjualan');
+    }
+
+    public function export_excel()
+    {
+        // Ambil data barang yang akan diexport
+        $detailpenjualan = DetailModel::select('penjualan_id', 'barang_id', 'harga', 'jumlah')
+            ->orderBy('penjualan_id')
+            ->orderBy('barang_id')
+            ->with('penjualan', 'barang')
+            ->get();
+
+        $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+
+        $sheet->setCellValue('A1', 'No');
+        $sheet->setCellValue('B1', 'Kode Penjualan');
+        $sheet->setCellValue('C1', 'Nama Barang');
+        $sheet->setCellValue('D1', 'Harga');
+        $sheet->setCellValue('E1', 'Total Pembelian');
+
+        $sheet->getStyle('A1:E1')->getFont()->setBold(true);
+
+        $no = 1;
+        $baris = 2;
+        foreach ($detailpenjualan as $key => $value) {
+            $sheet->setCellValue('A' . $baris, $no);
+            $sheet->setCellValue('B' . $baris, $value->penjualan->penjualan_kode);
+            $sheet->setCellValue('C' . $baris, $value->barang->barang_nama);
+            $sheet->setCellValue('D' . $baris, $value->harga);
+            $sheet->setCellValue('E' . $baris, $value->jumlah);
+            $baris++;
+            $no++;
+        }
+
+        foreach (range('A', 'E') as $columnID) {
+            $sheet->getColumnDimension($columnID)->setAutoSize(true);
+        }
+
+        $sheet->setTitle('Data Detail Penjualan');
+
+        $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
+        $filename = 'Data Detail Penjualan'.date('Y-m-d H:i:s').'.xlsx';
+
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment;filename="'.$filename.'"');
+        header('Cache-Control: max-age=0');
+        header('Cache-Control: max-age=1');
+        header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
+        header('Last-Modified: ' . gmdate('D, d M Y H:i:s') .' GMT');
+        header('Cache-Control: cache, must-revalidate');
+        header('Pragma: public');
+
+        $writer->save('php://output');
+        exit;
+    }
+
+    public function export_pdf()
+    {
+        $detailpenjualan = DetailModel::select('penjualan_id', 'barang_id', 'harga', 'jumlah')
+            ->orderBy('penjualan_id')
+            ->orderBy('barang_id')
+            ->orderBy('detail_id')
+            ->with('penjualan', 'barang')
+            ->get();
+        
+        $pdf = Pdf::loadView('detailpenjualan.export_pdf', ['detailpenjualan'=> $detailpenjualan]);
+        $pdf->setPaper('a4', 'potrait');
+        $pdf->setOption("isRemoteEnabled", true);
+        $pdf->render();
+
+        return $pdf->stream('Data Detail Penjualan '.date('Y-m-d H:i:s').'.pdf');
     }
 }
