@@ -63,7 +63,6 @@
                 },
                 penjualan_tanggal: {
                     required: true,
-                    number: true
                 }
             },
             submitHandler: function(form) {

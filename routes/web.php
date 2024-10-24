@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BarangController;
+use App\Http\Controllers\DetailPenjualanController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\LevelController;
 use App\Http\Controllers\PenjualanController;
@@ -10,6 +11,7 @@ use App\Http\Controllers\StokController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WelcomeController;
+use App\Models\DetailPenjualanModel;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,6 +30,10 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::pattern('id', '[0-9]+');
+
+Route::get('/calender', function() {
+    return view('calender');
+});
 
 Route::get('login', [AuthController::class, 'login'])->name('login');
 Route::post('/login', [AuthController::class, 'postlogin'])->name('postlogin');
@@ -175,14 +181,26 @@ Route::middleware(['auth'])->group(function(){
         Route::get('/penjualan/create_ajax', [PenjualanController::class, 'create_ajax']);
         Route::post('/penjualan/ajax', [PenjualanController::class, 'store_ajax']);
         Route::get('/penjualan/{id}/show_ajax', [PenjualanController::class, 'show_ajax']);
-        Route::get('/penjualan/{id}/edit_ajax', [PenjualanController::class, 'edit_ajax']);
-        Route::put('/penjualan/{id}/update_ajax', [PenjualanController::class, 'update_ajax']);
         Route::get('/penjualan/{id}/delete_ajax', [PenjualanController::class, 'confirm_ajax']);
         Route::delete('/penjualan/{id}/delete_ajax', [PenjualanController::class, 'delete_ajax']);
         Route::get('/penjualan/import', [PenjualanController::class, 'import']);
         Route::post('/penjualan/import_ajax', [PenjualanController::class, 'import_ajax']);
         Route::get('/penjualan/export_excel', [PenjualanController::class, 'export_excel']);
         Route::get('/penjualan/export_pdf', [PenjualanController::class, 'export_pdf']);
+    });
+
+    Route::middleware(['authorize:ADM,MNG,STF'])->group(function() {
+        Route::get('/detailpenjualan', [DetailPenjualanController::class, 'index']);         
+        Route::post('/detailpenjualan/list', [DetailPenjualanController::class, 'list']);
+        Route::get('/detailpenjualan/create_ajax', [DetailPenjualanController::class, 'create_ajax']);
+        Route::post('/detailpenjualan/ajax', [DetailPenjualanController::class, 'store_ajax']);
+        Route::get('/detailpenjualan/{id}/show_ajax', [DetailPenjualanController::class, 'show_ajax']);
+        Route::get('/detailpenjualan/{id}/delete_ajax', [DetailPenjualanController::class, 'confirm_ajax']);
+        Route::delete('/detailpenjualan/{id}/delete_ajax', [DetailPenjualanController::class, 'delete_ajax']);
+        Route::get('/detailpenjualan/import', [DetailPenjualanController::class, 'import']);
+        Route::post('/detailpenjualan/import_ajax', [DetailPenjualanController::class, 'import_ajax']);
+        Route::get('/detailpenjualan/export_excel', [DetailPenjualanController::class, 'export_excel']);
+        Route::get('/detailpenjualan/export_pdf', [DetailPenjualanController::class, 'export_pdf']);
     });
     
 });

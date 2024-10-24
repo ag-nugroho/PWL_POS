@@ -27,7 +27,7 @@
             display: block;
         }
 
-        img.image {
+        img {
             max-width: 100%;
             max-height: 80px;
             width: auto;
