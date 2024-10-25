@@ -148,7 +148,7 @@
             src="{{ asset('default/path/to/default_profile.png') }}"
           @endif
           class="user-image rounded-circle shadow" alt="User Image" style="height: 35px; width: 35px;">
-        <span class="d-none d-md-inline">{{ auth()->user()->nama }}</span>
+        <span class="d-none d-md-inline">{{ auth()->user()->username }}</span>
       </a>
       <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
         <a href="{{ url('/profile') }}" class="dropdown-item">

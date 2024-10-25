@@ -190,8 +190,6 @@ Route::middleware(['auth'])->group(function(){
         Route::get('/detailpenjualan', [DetailPenjualanController::class, 'index']);         
         Route::post('/detailpenjualan/list', [DetailPenjualanController::class, 'list']);
         Route::get('/detailpenjualan/{id}/show_ajax', [DetailPenjualanController::class, 'show_ajax']);
-        Route::get('/detailpenjualan/{id}/delete_ajax', [DetailPenjualanController::class, 'confirm_ajax']);
-        Route::delete('/detailpenjualan/{id}/delete_ajax', [DetailPenjualanController::class, 'delete_ajax']);
         Route::get('/detailpenjualan/export_excel', [DetailPenjualanController::class, 'export_excel']);
         Route::get('/detailpenjualan/export_pdf', [DetailPenjualanController::class, 'export_pdf']);
     });

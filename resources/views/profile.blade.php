@@ -68,12 +68,36 @@
                                     <h6 class="mb-3 text-muted">Ubah Password</h6>
                                 </div>
 
+                                <div class="col-md-12 mb-3">
+                                    <label for="old_password" class="form-label">{{ __('Password Saat Ini') }}</label>
+                                    <input id="old_password" type="password"
+                                        class="form-control border-light shadow-sm @error('old_password') is-invalid @enderror"
+                                        name="old_password" autocomplete="current-password">
+                                    @error('old_password')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+
                                 <div class="col-md-6 mb-3">
                                     <label for="password" class="form-label">{{ __('Password Baru') }}</label>
                                     <input id="password" type="password"
                                         class="form-control border-light shadow-sm @error('password') is-invalid @enderror"
                                         name="password" autocomplete="new-password">
                                     @error('password')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label for="password_confirmation" class="form-label">{{ __('Konfirmasi Password Baru') }}</label>
+                                    <input id="password_confirmation" type="password"
+                                        class="form-control border-light shadow-sm @error('password_confirmation') is-invalid @enderror"
+                                        name="password_confirmation" autocomplete="new-password">
+                                    @error('password_confirmation')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
