@@ -68,7 +68,7 @@ Route::middleware(['auth'])->group(function(){
         Route::get('/user/export_pdf', [UserController::class, 'export_pdf']);
     });
 
-    Route::middleware(['authorize:ADM'])->group(function() {
+    Route::middleware(['authorize:ADM,MNG'])->group(function() {
         Route::get('/level', [LevelController::class, 'index']); 
         Route::post('level/list', [LevelController::class, 'list']);
         Route::get('level/create', [LevelController::class, 'create']);
@@ -90,7 +90,7 @@ Route::middleware(['auth'])->group(function(){
         Route::get('/level/export_pdf', [LevelController::class, 'export_pdf']);
     });
 
-    Route::middleware(['authorize:ADM,MNG'])->group( function() {
+    Route::middleware(['authorize:ADM,MNG,STF'])->group( function() {
         Route::get('/kategori', [KategoriController::class, 'index']);          
         Route::post('/kategori/list', [KategoriController::class, 'list']);     
         Route::get('/kategori/create', [KategoriController::class, 'create']);   
@@ -112,7 +112,7 @@ Route::middleware(['auth'])->group(function(){
         Route::get('/kategori/export_pdf', [KategoriController::class, 'export_pdf']);
     });
 
-    Route::middleware(['authorize:ADM,MNG'])->group(function() {
+    Route::middleware(['authorize:ADM,MNG,STF'])->group(function() {
         Route::get('/supplier', [SupplierController::class, 'index']);        
         Route::post('/supplier/list', [SupplierController::class, 'list']);      
         Route::get('/supplier/create', [SupplierController::class, 'create']);   
@@ -186,15 +186,15 @@ Route::middleware(['auth'])->group(function(){
         Route::get('/penjualan/export_pdf', [PenjualanController::class, 'export_pdf']);
     });
 
-    // Route::middleware(['authorize:ADM,MNG,STF'])->group(function() {
-    //     Route::get('/detailpenjualan', [DetailPenjualanController::class, 'index']);         
-    //     Route::post('/detailpenjualan/list', [DetailPenjualanController::class, 'list']);
-    //     Route::get('/detailpenjualan/{id}/show_ajax', [DetailPenjualanController::class, 'show_ajax']);
-    //     Route::get('/detailpenjualan/{id}/delete_ajax', [DetailPenjualanController::class, 'confirm_ajax']);
-    //     Route::delete('/detailpenjualan/{id}/delete_ajax', [DetailPenjualanController::class, 'delete_ajax']);
-    //     Route::get('/detailpenjualan/export_excel', [DetailPenjualanController::class, 'export_excel']);
-    //     Route::get('/detailpenjualan/export_pdf', [DetailPenjualanController::class, 'export_pdf']);
-    // });
+    Route::middleware(['authorize:ADM,MNG'])->group(function() {
+        Route::get('/detailpenjualan', [DetailPenjualanController::class, 'index']);         
+        Route::post('/detailpenjualan/list', [DetailPenjualanController::class, 'list']);
+        Route::get('/detailpenjualan/{id}/show_ajax', [DetailPenjualanController::class, 'show_ajax']);
+        Route::get('/detailpenjualan/{id}/delete_ajax', [DetailPenjualanController::class, 'confirm_ajax']);
+        Route::delete('/detailpenjualan/{id}/delete_ajax', [DetailPenjualanController::class, 'delete_ajax']);
+        Route::get('/detailpenjualan/export_excel', [DetailPenjualanController::class, 'export_excel']);
+        Route::get('/detailpenjualan/export_pdf', [DetailPenjualanController::class, 'export_pdf']);
+    });
 
     Route::group(['prefix' =>'profile'],function(){
         Route::get('/', [ProfileController::class, 'index'])->name('profile.index');

@@ -50,7 +50,6 @@ class PenjualanController extends Controller
             ->addColumn('aksi', function ($penjualan) { //menambahkan kolom aksi
 
                 $btn = '<button onclick="modalAction(\'' . url('/penjualan/' . $penjualan->penjualan_id . '/show_ajax') . '\')" class="btn btn-info btn-sm">Detail</button> ';
-                $btn .= '<button onclick="modalAction(\'' . url('/penjualan/' . $penjualan->penjualan_id . '/delete_ajax') . '\')" class="btn btn-danger btn-sm">Hapus</button>';
                 return $btn;
             })
             ->rawColumns(['aksi']) // memberitahu bahwa kolom aksi adalah html
@@ -60,39 +59,72 @@ class PenjualanController extends Controller
     public function create_ajax()
     {
         $user = UserModel::select('user_id', 'nama')->get();
-
+        $barang = BarangModel::select('barang_id', 'barang_nama', 'harga_jual')->get();
+    
         return view('penjualan.create_ajax')
-            ->with('user', $user);
+            ->with('user', $user)
+            ->with('barang', $barang);
     }
 
     public function store_ajax(Request $request)
-    {
-        if ($request->ajax() || $request->wantsJson()) {
-            $rules = [
-                'user_id' => 'required|integer',
-                'pembeli' => 'required|string|min:3',
-                'penjualan_kode' => 'required|string|min:3|unique:t_penjualan,penjualan_kode',
-                'penjualan_tanggal' => 'required|date_format:Y-m-d\TH:i',
-            ];
+{
+    if ($request->ajax() || $request->wantsJson()) {
+        $rules = [
+            'user_id' => 'required|integer',
+            'pembeli' => 'required|string|min:3',
+            'penjualan_kode' => 'required|string|min:3|unique:t_penjualan,penjualan_kode',
+            'penjualan_tanggal' => 'required|date_format:Y-m-d\TH:i',
+            'barang_id.*' => 'required|integer',
+            'jumlah.*' => 'required|integer|min:1',
+        ];
 
-            $validator = Validator::make($request->all(), $rules);
+        $validator = Validator::make($request->all(), $rules);
 
-            if ($validator->fails()) {
-                return response()->json([
-                    'status' => false,
-                    'message' => 'Validasi Gagal',
-                    'msgField' => $validator->errors(),
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Validasi Gagal',
+                'msgField' => $validator->errors(),
+            ]);
+        }
+
+        DB::beginTransaction();
+        try {
+            // Simpan header penjualan
+            $penjualan = PenjualanModel::create([
+                'user_id' => $request->user_id,
+                'pembeli' => $request->pembeli,
+                'penjualan_kode' => $request->penjualan_kode,
+                'penjualan_tanggal' => $request->penjualan_tanggal,
+            ]);
+
+            // Simpan detail barang
+            foreach($request->barang_id as $key => $value) {
+                $barangs = BarangModel::find($value);
+                DetailModel::create([
+                    'penjualan_id' => $penjualan->penjualan_id,
+                    'barang_id' => $value,
+                    'harga' => $barangs->harga_jual,
+                    'jumlah' => $request->jumlah[$key],
                 ]);
             }
 
-            PenjualanModel::create($request->all());
+            DB::commit();
             return response()->json([
                 'status' => true,
                 'message' => 'Data Penjualan Berhasil Disimpan',
             ]);
+
+        } catch (\Exception $e) {
+            DB::rollback();
+            return response()->json([
+                'status' => false,
+                'message' => 'Gagal menyimpan data: ' . $e->getMessage(),
+            ]);
         }
-        redirect('/penjualan');
     }
+    return redirect('/penjualan');
+}
 
     public function show_ajax(string $id)
     {
