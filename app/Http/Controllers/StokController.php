@@ -309,7 +309,7 @@ class StokController extends Controller
         $sheet->setTitle('Data Stok Barang');
 
         $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
-        $filename = 'Data User'.date('Y-m-d H:i:s').'.xlsx';
+        $filename = 'Data Stok'.date('Y-m-d H:i:s').'.xlsx';
 
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
         header('Content-Disposition: attachment;filename="'.$filename.'"');

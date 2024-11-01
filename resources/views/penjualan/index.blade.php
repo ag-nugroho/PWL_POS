@@ -41,7 +41,7 @@
                         <th>Pembeli</th>
                         <th>Kode Penjualan</th>
                         <th>Tanggal Penjualan</th>
-                        <th>Penanggung Jawab</th>
+                        <th>PIC</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>

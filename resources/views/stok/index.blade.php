@@ -52,11 +52,10 @@
                         <th>No</th>
                         <th>Nama Supplier</th>
                         <th>Nama Barang</th>
-                        <th>PJ</th>
+                        <th>PIC</th>
                         <th>Tanggal</th>
                         <th>Jumlah</th>
                         <th>Aksi</th>
-                    </tr>
                 </thead>
             </table>
         </div>

@@ -24,22 +24,6 @@
                 </a>
             </li>
 
-            {{-- <li class="nav-header">Data Pengguna</li>
-            <li class="nav-item">
-                <a href="{{ url('/level') }}" class="nav-link {{ ($activeMenu == 'level')? 'active' : '' }}">
-                    <i class="nav-icon far fa-user"></i>
-                    <p>Level User</p>
-                </a>
-            </li>
-
-            <li class="nav-item">
-                <a href="{{ url('/user') }}" class="nav-link {{ ($activeMenu == 'user')? 
-            'active' : '' }}">
-                    <i class="nav-icon far fa-user"></i>
-                    <p>Data User</p>
-                </a>
-            </li> --}}
-
             <li class="nav-item has-treeview {{ ($activeMenu == 'level' || $activeMenu == 'user') ? 'menu-open' : '' }}">
                 <a href="#" class="nav-link">
                     <i class="bi bi-people"></i>

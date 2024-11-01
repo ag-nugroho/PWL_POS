@@ -48,7 +48,6 @@ class DetailPenjualanController extends Controller
             ->addIndexColumn()
             ->addColumn('aksi', function ($detailpenjualan){ //menambahkan kolom aksi
                 $btn = '<button onclick="modalAction(\''.url('/detailpenjualan/'. $detailpenjualan->detail_id . '/show_ajax').'\')" class="btn btn-info btn-sm">Detail</button> ';
-                $btn .= '<button onclick="modalAction(\''.url('/detailpenjualan/' . $detailpenjualan->detail_id . '/delete_ajax').'\')" class="btn btn-danger btn-sm">Hapus</button>';
                 return $btn;
             })
             ->rawColumns(['aksi']) // memberitahu bahwa kolom aksi adalah html
@@ -61,34 +60,7 @@ class DetailPenjualanController extends Controller
 
         return view('detailpenjualan.show_ajax', ['detailpenjualan' => $detailpenjualan]);
     }
-
-    public function confirm_ajax(string $id)
-    {
-        $detailpenjualan = DetailModel::find($id);
-
-        return view('detailpenjualan.confirm_ajax', ['detailpenjualan' => $detailpenjualan]);
-    }
-
-    public function delete_ajax(Request $request, $id) 
-    {
-        if ($request->ajax() || $request->wantsJson()) {
-            $detailpenjualan = DetailModel::find($id);
-            if ($detailpenjualan) {
-                $detailpenjualan->delete();
-                return response()->json([
-                    'status' => true,
-                    'message' => 'Data berhasil dihapus'
-                ]);
-            } else {
-                return response()->json([
-                    'status' => false,
-                    'message' => 'Data tidak ditemukan'
-                ]); 
-            }
-        }    
-        return redirect('/detailpenjualan');
-    }
-
+    
     public function export_excel()
     {
         // Ambil data barang yang akan diexport

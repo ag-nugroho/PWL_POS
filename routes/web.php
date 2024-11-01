@@ -186,13 +186,13 @@ Route::middleware(['auth'])->group(function(){
         Route::get('/penjualan/export_pdf', [PenjualanController::class, 'export_pdf']);
     });
 
-    Route::middleware(['authorize:ADM,MNG'])->group(function() {
-        Route::get('/detailpenjualan', [DetailPenjualanController::class, 'index']);         
-        Route::post('/detailpenjualan/list', [DetailPenjualanController::class, 'list']);
-        Route::get('/detailpenjualan/{id}/show_ajax', [DetailPenjualanController::class, 'show_ajax']);
-        Route::get('/detailpenjualan/export_excel', [DetailPenjualanController::class, 'export_excel']);
-        Route::get('/detailpenjualan/export_pdf', [DetailPenjualanController::class, 'export_pdf']);
-    });
+    // Route::middleware(['authorize:ADM,MNG'])->group(function() {
+    //     Route::get('/detailpenjualan', [DetailPenjualanController::class, 'index']);         
+    //     Route::post('/detailpenjualan/list', [DetailPenjualanController::class, 'list']);
+    //     Route::get('/detailpenjualan/{id}/show_ajax', [DetailPenjualanController::class, 'show_ajax']);
+    //     Route::get('/detailpenjualan/export_excel', [DetailPenjualanController::class, 'export_excel']);
+    //     Route::get('/detailpenjualan/export_pdf', [DetailPenjualanController::class, 'export_pdf']);
+    // });
 
     Route::group(['prefix' =>'profile'],function(){
         Route::get('/', [ProfileController::class, 'index'])->name('profile.index');

@@ -282,7 +282,7 @@ class PenjualanController extends Controller
             ->get();
 
         $pdf = Pdf::loadView('penjualan.export_pdf', ['penjualan' => $penjualan]);
-        $pdf->setPaper('a4', 'potrait');
+        $pdf->setPaper('a4', 'landscape');
         $pdf->setOption("isRemoteEnabled", true);
         $pdf->render();
 
